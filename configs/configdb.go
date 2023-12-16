@@ -1,5 +1,7 @@
 package config
+
 import "github.com/spf13/viper"
+
 var cfg *config
 
 type config struct {
@@ -26,7 +28,7 @@ func init() {
 
 }
 
-func Load() error{
+func Load() error {
 	viper.SetConfigName("config")
 	viper.SetConfigType("toml")
 	viper.AddConfigPath(".")
@@ -38,17 +40,17 @@ func Load() error{
 		}
 	}
 	cfg = new(config)
-	cfg.API = APIConfig {
+	cfg.API = APIConfig{
 		Port: viper.GetString("api.port"),
 	}
 	cfg.DB = DBconfig{
-		Host: viper.GetString("database.host")
-		Port: viper.GetString("database.port")
-		User: viper.GetString("database.user")
-		Pass: viper.GetString("database.pass")
-		Database: viper.GetString("database.name")
+		Host:     viper.GetString("database.host"),
+		Port:     viper.GetString("database.port"),
+		User:     viper.GetString("database.user"),
+		Pass:     viper.GetString("database.pass"),
+		Database: viper.GetString("database.name"),
 	}
-	return nill
+	return nil
 }
 
 func GetDB() DBconfig {

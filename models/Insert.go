@@ -2,7 +2,7 @@ package models
 
 func insert(todo Todo) (id int64, err error) {
 
-	conn, err := banco.ConnectToDB()
+	conn, err := banco.ConnectToDB
 	if err != nil {
 		return
 	}
