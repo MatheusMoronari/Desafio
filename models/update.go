@@ -2,7 +2,7 @@ package models
 
 import "github.com/MatheusMoronari/Desafio/banco"
 
-func Update(id int64, pessoa pessoa) (int64, error) {
+func Update(id int64, pessoa Pessoa) (int64, error) {
 	conn, err := banco.OpenConnection()
 	if err != nil {
 		return 0, err
