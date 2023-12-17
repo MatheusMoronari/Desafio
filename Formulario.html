@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário de Teste</title>
+</head>
+<body>
+    <form id="testForm">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title"><br><br>
+
+        <label for="description">Descrição:</label>
+        <textarea id="description" name="description"></textarea><br><br>
+
+        <input type="checkbox" id="done" name="done">
+        <label for="done">Concluído</label><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var title = document.getElementById('title').value;
+    var description = document.getElementById('description').value;
+    var done = document.getElementById('done').checked;
+
+    var data = {
+        title: title,
+        description: description,
+        done: done
+    };
+
+    fetch('http://localhost:9000', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'access-control-allow-origin': '*'
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Sucesso:', data);
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+    });
+});
+    </script>
+</body>
+</html>
