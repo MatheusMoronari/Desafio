@@ -7,6 +7,7 @@ import (
 	"github.com/MatheusMoronari/Desafio/configs"
 	"github.com/MatheusMoronari/Desafio/handlers"
 	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/cors"
 )
 
 func main() {
@@ -15,7 +16,12 @@ func main() {
 		panic(err)
 	}
 	r := chi.NewRouter()
-	r.Post("/", CORS(handlers.Create))
+	r.Use(cors.Handler(
+		cors.Options{
+			AllowedOrigins: []string{"https://*", "http://*"},
+		},
+	))
+	r.Post("/", handlers.Create)
 	r.Put("/{id}", handlers.Update)
 	r.Delete("/{id}", handlers.Delete)
 	r.Get("/{id}", handlers.List)

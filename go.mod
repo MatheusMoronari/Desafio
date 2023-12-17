@@ -3,13 +3,14 @@ module github.com/MatheusMoronari/Desafio
 go 1.21.5
 
 require (
+	github.com/go-chi/chi/v5 v5.0.10
 	github.com/lib/pq v1.10.9
 	github.com/spf13/viper v1.18.1
 )
 
 require (
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
-	github.com/go-chi/chi/v5 v5.0.10 // indirect
+	github.com/go-chi/cors v1.2.1 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
