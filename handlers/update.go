@@ -17,15 +17,15 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	var todo models.Todo
+	var pessoa models.pessoa
 
-	err = json.NewDecoder(r.Body).Decode(&todo)
+	err = json.NewDecoder(r.Body).Decode(&pessoa)
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	rows, err := models.Update(int64(id), todo)
+	rows, err := models.Update(int64(id), pessoa)
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

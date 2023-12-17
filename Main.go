@@ -19,6 +19,7 @@ func main() {
 	r.Use(cors.Handler(
 		cors.Options{
 			AllowedOrigins: []string{"https://*", "http://*"},
+			AllowedHeaders: []string{"X-PINGOTHER", "Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		},
 	))
 	r.Post("/", handlers.Create)

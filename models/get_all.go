@@ -2,24 +2,24 @@ package models
 
 import "github.com/MatheusMoronari/Desafio/banco"
 
-func GetAll() (todos []Todo, err error) {
+func GetAll() (pessoas []pessoa, err error) {
 	conn, err := banco.OpenConnection()
 	if err != nil {
 		return
 	}
 	defer conn.Close()
-	rows, err := conn.Query(`SELECT * FROM todos`)
+	rows, err := conn.Query(`SELECT * FROM pessoas`)
 	if err != nil {
 		return
 	}
 	for rows.Next() {
-		var todo Todo
+		var pessoa pessoa
 
-		err = rows.Scan(&todo.id, &todo.Title, &todo.Description, &todo.Done)
+		err = rows.Scan(&pessoa.id, &pessoa.Nome, &pessoa.Codigo, &pessoa.Tipo_pessoa)
 		if err != nil {
 			continue
 		}
-		todos = append(todos, todo)
+		pessoas = append(pessoas, pessoa)
 	}
 	return
 }

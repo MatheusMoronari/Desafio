@@ -2,13 +2,13 @@ package models
 
 import "github.com/MatheusMoronari/Desafio/banco"
 
-func Get(id int64) (todo Todo, err error) {
+func Get(id int64) (pessoa pessoa, err error) {
 	conn, err := banco.OpenConnection()
 	if err != nil {
 		return
 	}
 	defer conn.Close()
-	row := conn.QueryRow(`SELECT * FROM todos WHERE id=$1`, id)
-	err = row.Scan(&todo.id, &todo.Title, &todo.Description, &todo.Done)
+	row := conn.QueryRow(`SELECT * FROM pessoas WHERE id=$1`, id)
+	err = row.Scan(&pessoa.id, &pessoa.Nome, &pessoa.Codigo, &pessoa.Tipo_pessoa)
 	return
 }

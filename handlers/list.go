@@ -9,10 +9,10 @@ import (
 )
 
 func List(w http.ResponseWriter, r *http.Request) {
-	todos, err := models.GetAll()
+	pessoas, err := models.GetAll()
 	if err != nil {
 		log.Printf("Erro ao obter Registros: %v", err)
 	}
 	w.Header().Add("Content=Type", "application/json")
-	json.NewEncoder(w).Encode(todos)
+	json.NewEncoder(w).Encode(pessoas)
 }

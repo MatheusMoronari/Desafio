@@ -17,9 +17,9 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	var todo models.Todo
+	var pessoa models.pessoa
 
-	err = json.NewDecoder(r.Body).Decode(&todo)
+	err = json.NewDecoder(r.Body).Decode(&pessoa)
 	if err != nil {
 		log.Printf("Erro ao Remover registro: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)

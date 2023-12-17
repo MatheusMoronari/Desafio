@@ -2,7 +2,7 @@ package models
 
 import "github.com/MatheusMoronari/Desafio/banco"
 
-func Insert(todo Todo) (id int64, err error) {
+func Insert(pessoa pessoa) (id int64, err error) {
 
 	conn, err := banco.OpenConnection()
 	if err != nil {
@@ -11,7 +11,7 @@ func Insert(todo Todo) (id int64, err error) {
 
 	defer conn.Close() //isso aqui ele executa depois que a função for executada.
 
-	sql := `insert into todos (title, description, done ) VALUES ($1,$2,$3) RETURNING id`
-	err = conn.QueryRow(sql, todo.Title, todo.Description, todo.Done).Scan(&id)
+	sql := `insert into pessoas (nome, codigo, tipo_pessoa, data_inclusao ) VALUES ($1,$2,$3,current_timestamp) RETURNING id`
+	err = conn.QueryRow(sql, pessoa.Nome, pessoa.Codigo, pessoa.Tipo_pessoa).Scan(&id)
 	return
 }

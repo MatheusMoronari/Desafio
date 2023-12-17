@@ -17,12 +17,12 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	todo, err := models.Get(int64(id))
+	pessoa, err := models.Get(int64(id))
 	if err != nil {
 		log.Printf("Erro ao atualizar registro: %v", err)
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
 	w.Header().Add("Content=Type", "application/json")
-	json.NewEncoder(w).Encode(todo)
+	json.NewEncoder(w).Encode(pessoa)
 }

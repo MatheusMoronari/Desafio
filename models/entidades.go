@@ -1,8 +1,8 @@
 package models
 
-type Todo struct {
+type pessoa struct {
 	id          int64  `json: "id"`
-	Title       string `json: "title"`
-	Description string `json:"description"`
-	Done        bool   `json: "done"`
+	Nome        string `json: "nome"`
+	Codigo      string `json:"codigo"`
+	Tipo_pessoa int    `json: "tipo_pessoa"`
 }
