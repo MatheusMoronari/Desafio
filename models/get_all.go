@@ -2,7 +2,7 @@ package models
 
 import "github.com/MatheusMoronari/Desafio/banco"
 
-func GetAll() (pessoas []pessoa, err error) {
+func GetAll() (pessoas []Pessoa, err error) {
 	conn, err := banco.OpenConnection()
 	if err != nil {
 		return
@@ -13,7 +13,7 @@ func GetAll() (pessoas []pessoa, err error) {
 		return
 	}
 	for rows.Next() {
-		var pessoa pessoa
+		var pessoa Pessoa
 
 		err = rows.Scan(&pessoa.id, &pessoa.Nome, &pessoa.Codigo, &pessoa.Tipo_pessoa)
 		if err != nil {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Formulário de Teste</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container mt-5">
+        <form id="testForm">
+            <div class="form-group">
+                <label for="nome">Nome da pessoa:</label>
+                <input type="text" class="form-control" id="nome" name="nome">
+            </div>
+
+            <div class="form-group">
+                <label for="codigo">Código:</label>
+                <input type="text" class="form-control" id="codigo" name="codigo">
+            </div>
+
+            <div class="form-group">
+                <label for="tipoPessoa">Tipo de Pessoa:</label>
+                <select class="form-control" id="tipoPessoa" name="tipoPessoa">
+                    <option value="1">Cliente</option>
+                    <option value="2">Fornecedor</option>
+                    <option value="3">Colaborador</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var nome = document.getElementById('nome').value;
+    var codigo = document.getElementById('codigo').value;
+    var tipoPessoa = document.getElementById('tipoPessoa').value;
+
+    var data = {
+        nome: nome,
+        codigo: codigo,
+        tipoPessoa: tipoPessoa
+    };
+
+    fetch('http://localhost:9000', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Sucesso:', data);
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+    });
+});
+
+    </script>
+</body>
+</html>

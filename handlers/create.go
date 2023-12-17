@@ -10,7 +10,7 @@ import (
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
-	var pessoa models.pessoa
+	var pessoa models.Pessoa
 
 	err := json.NewDecoder(r.Body).Decode(&pessoa)
 	if err != nil {
