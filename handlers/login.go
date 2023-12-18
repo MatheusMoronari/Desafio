@@ -4,12 +4,13 @@ import (
 	"encoding/json"
 	"net/http"
 
+	"github.com/MatheusMoronari/Desafio/entidades"
 	"github.com/MatheusMoronari/Desafio/models"
 	_ "github.com/lib/pq"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
-	var dadoslogin models.Dadoslogin
+	var dadoslogin entidades.Dadoslogin
 	error := json.NewDecoder(r.Body).Decode(&dadoslogin)
 	if error != nil {
 		http.Error(w, error.Error(), http.StatusBadRequest)

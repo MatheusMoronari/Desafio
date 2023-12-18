@@ -5,6 +5,7 @@ import (
 	"fmt"
 
 	"github.com/MatheusMoronari/Desafio/banco"
+	"github.com/MatheusMoronari/Desafio/entidades"
 	_ "github.com/lib/pq"
 )
 
@@ -26,7 +27,7 @@ import (
 // 	return true
 // }
 
-func ValidaUsuario(dadoslogin Dadoslogin) bool {
+func ValidaUsuario(dadoslogin entidades.Dadoslogin) bool {
 	conn, err := banco.OpenConnection()
 	if err != nil {
 		return false

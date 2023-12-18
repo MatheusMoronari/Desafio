@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta de Usuário</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h2 class="mt-5">Consultar Usuário</h2>
+        <div class="form-group">
+            <label for="userID">ID do Usuário:</label>
+            <input type="number" class="form-control" id="userID" placeholder="Digite o ID do usuário">
+        </div>
+        <button onclick="consultarUsuario()" class="btn btn-primary">Consultar</button>
+        
+        <h3 class="mt-5">Resultado:</h3>
+        <div id="resultadoConsulta">
+            <!-- Os detalhes do usuário serão exibidos aqui -->
+        </div>
+
+        <!-- Campo de edição do nome, inicialmente escondido -->
+        <div id="editarNome" style="display: none;" class="mt-3">
+            <div class="form-group">
+                <label for="nomeUsuario">Nome do Usuário:</label>
+                <input type="text" class="form-control" id="nomeUsuario" placeholder="Digite o novo nome do usuário">
+                <p id="apiResponse"></p>
+            </div>
+            <button onclick="atualizaUsuario()" class="btn btn-success" id="autualizarnome">Atualizar Nome</button>
+        </div>
+    </div>
+
+
+    <!-- Bootstrap e JavaScript -->
+    <script>
+        function consultarUsuario() {
+            var id = document.getElementById('userID').value;
+            fetch(`http://localhost:9000/${id}`,{
+            method: 'GET',}
+
+            ) 
+                .then(response => response.json())
+                .then(data => {
+                    var resultado = document.getElementById('resultadoConsulta');
+                    resultado.innerHTML = `
+            <div class="card">
+                <div class="card-header">
+                    Detalhes do Usuário
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">ID: ${data.Id}</h5>
+                    <p class="card-text">Nome: ${data.Nome}</p>
+                    <p class="card-text">Código: ${data.Codigo}</p>
+                    <p class="card-text">Descrição: ${data.Tipo_pessoa_desc}</p>
+                    <button onclick="mostrarEditarNome()" class="btn btn-secondary mt-2">Editar</button>
+                </div>
+            </div>`;
+                })
+                .catch(error => console.error('Erro ao buscar informações:', error));
+        }
+
+        function mostrarEditarNome() {
+            var editarNome = document.getElementById('editarNome');
+            editarNome.style.display = 'block';
+        }
+    function atualizaUsuario() {
+    var id = document.getElementById('userID').value;
+    var nome = document.getElementById('nomeUsuario').value;
+    var data = {
+        nome: nome,
+    };
+    console.log(data);
+    fetch(`http://localhost:9000/${id}`, { 
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(data => { 
+        return data.json()
+    })
+    .then(response => {
+        if(response && response.Message) {
+            document.getElementById('apiResponse').textContent = response.Message;
+        } else {
+            document.getElementById('apiResponse').textContent = 'Resposta recebida, mas sem mensagem específica.';
+        }
+    })
+    .catch((error) => {
+        console.error('Erro:', error);
+        document.getElementById('apiResponse').textContent = error;
+    });
+    ;}
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

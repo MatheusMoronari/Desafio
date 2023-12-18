@@ -1,8 +1,11 @@
 package models
 
-import "github.com/MatheusMoronari/Desafio/banco"
+import (
+	"github.com/MatheusMoronari/Desafio/banco"
+	"github.com/MatheusMoronari/Desafio/entidades"
+)
 
-func Insert(pessoa Pessoa) (id int64, err error) {
+func Insert(pessoa entidades.Pessoa) (id int64, err error) {
 
 	conn, err := banco.OpenConnection()
 	if err != nil {

@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/MatheusMoronari/Desafio/entidades"
 	"github.com/MatheusMoronari/Desafio/models"
 	"github.com/go-chi/chi/v5"
 )
@@ -17,7 +18,7 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	var pessoa models.Pessoa
+	var pessoa entidades.Pessoa
 
 	err = json.NewDecoder(r.Body).Decode(&pessoa)
 	if err != nil {

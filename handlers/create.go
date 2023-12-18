@@ -6,11 +6,12 @@ import (
 	"log"
 	"net/http"
 
+	"github.com/MatheusMoronari/Desafio/entidades"
 	"github.com/MatheusMoronari/Desafio/models"
 )
 
 func Create(w http.ResponseWriter, r *http.Request) {
-	var pessoa models.Pessoa
+	var pessoa entidades.Pessoa
 
 	err := json.NewDecoder(r.Body).Decode(&pessoa)
 	if err != nil {
@@ -19,6 +20,7 @@ func Create(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	id, err := models.Insert(pessoa)
+	fmt.Println(id)
 	var resp map[string]any
 	if err != nil {
 		resp = map[string]any{

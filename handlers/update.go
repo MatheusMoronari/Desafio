@@ -6,6 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
+	"github.com/MatheusMoronari/Desafio/entidades"
 	"github.com/MatheusMoronari/Desafio/models"
 	"github.com/go-chi/chi/v5"
 )
@@ -17,7 +18,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 		return
 	}
-	var pessoa models.Pessoa
+	var pessoa entidades.Pessoa
 
 	err = json.NewDecoder(r.Body).Decode(&pessoa)
 	if err != nil {
@@ -38,6 +39,7 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		"Error":   false,
 		"Message": "dados atualizados com sucesso!",
 	}
-	w.Header().Add("Content=Type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(resp)
+	return
 }
