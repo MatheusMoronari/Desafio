@@ -20,6 +20,7 @@ func main() {
 		cors.Options{
 			AllowedOrigins: []string{"https://*", "http://*"},
 			AllowedHeaders: []string{"X-PINGOTHER", "Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
+			AllowedMethods: []string{"GET", "POST", "Delete"},
 		},
 	))
 	r.Post("/", handlers.Create)
@@ -27,6 +28,7 @@ func main() {
 	r.Delete("/{id}", handlers.Delete)
 	r.Get("/{id}", handlers.List)
 	r.Get("/{id}", handlers.Get)
+	r.Post("/login", handlers.Login)
 	http.ListenAndServe(fmt.Sprintf(":%s", configs.GetServerPort()), r)
 
 }

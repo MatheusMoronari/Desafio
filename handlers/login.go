@@ -1,21 +1,25 @@
 package handlers
 
 import (
-	"fmt"
+	"encoding/json"
 	"net/http"
 
+	"github.com/MatheusMoronari/Desafio/models"
 	_ "github.com/lib/pq"
 )
 
-func loginHandler(w http.ResponseWriter, r *http.Request) {
-	// Obter usuário e senha dos parâmetros da requisição
-	username := r.URL.Query().Get("username")
-	password := r.URL.Query().Get("password")
-
-	// Validar usuário
-	if validateUser(username, password) {
-		fmt.Fprintf(w, "Login bem-sucedido")
+func Login(w http.ResponseWriter, r *http.Request) {
+	var dadoslogin models.Dadoslogin
+	error := json.NewDecoder(r.Body).Decode(&dadoslogin)
+	if error != nil {
+		http.Error(w, error.Error(), http.StatusBadRequest)
+		return
+	}
+	if models.ValidaUsuario(dadoslogin) {
+		w.Header().Set("Content-Type", "application/json")
+		json.NewEncoder(w).Encode(map[string]string{"message": "Login bem-sucedido"})
 	} else {
-		http.Error(w, "Usuário ou senha inválidos", http.StatusUnauthorized)
+		w.WriteHeader(http.StatusUnauthorized)
+		json.NewEncoder(w).Encode(map[string]string{"message": "Usuário ou senha inválidos"})
 	}
 }
