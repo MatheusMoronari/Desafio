@@ -8,7 +8,7 @@ func Delete(id int64) (int64, error) {
 		return 0, err
 	}
 	defer conn.Close()
-	res, err := conn.Exec(`DEKETE FROM pessoas WHERE id=$1`, id)
+	res, err := conn.Exec(`DELETE FROM pessoas WHERE id=$1`, id)
 	if err != nil {
 		return 0, err
 	}

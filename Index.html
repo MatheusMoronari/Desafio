@@ -35,11 +35,11 @@
                 </button>
             </div>
             <div class="modal-body">
-                <p>Por favor, insira sua senha novamente para confirmação.</p>
-                <input type="password" class="form-control" id="confirmPassword">
+                <p>Por favor, insira a Palavra Camaleão</p>
+                <input type="text" class="form-control" id="userInput">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onclick="validarSenhaAdicional()">Confirmar</button>
+                <button type="button" class="btn btn-primary" onclick="validarPalavra()">Confirmar</button>
             </div>
         </div>
     </div>
@@ -81,12 +81,37 @@
 });
 });
 
-// Função para validar a senha adicional
-function validarSenhaAdicional() {
-    var confirmPassword = document.getElementById('confirmPassword').value;
-    // Aqui você pode adicionar a lógica para validar a senha adicional
-    console.log('Senha adicional:', confirmPassword);
-    $('#senhaModal').modal('hide');
+// // Função para validar a senha adicional
+// function validarSenhaAdicional() {
+//     var confirmPassword = document.getElementById('confirmPassword').value;
+//     // Aqui você pode adicionar a lógica para validar a senha adicional
+//     console.log('Senha adicional:', confirmPassword);
+//     $('#senhaModal').modal('hide');
+// }
+
+function validarPalavra() {
+    var palavraBase = "adaptive2023";
+    var inputUsuario = document.getElementById('userInput').value;
+    var minutoAtual = new Date().getMinutes();
+    var ultimoDigito = minutoAtual % 10;
+
+    var palavraChave = palavraBase.slice(-ultimoDigito) + palavraBase.slice(0, -ultimoDigito);
+
+    var mensagemResultadoElemento = document.getElementById('mensagemResultado');
+    console.log(palavraChave);
+    if (inputUsuario === palavraChave) {
+        mensagemResultadoElemento.textContent = 'Palavra validada com sucesso!';
+        mensagemResultadoElemento.style.color = 'green';
+
+        setTimeout(function() {
+            $('#senhaModal').modal('hide');
+            // Redirecionar para a página de cadastro
+            window.location.href = 'http://localhost:8080/Cadastro.html'; // Substitua pelo URL correto
+        }, 2000); // Tempo em milissegundos (2000 ms = 2 segundos)
+    } else {
+        mensagemResultadoElemento.textContent = 'Palavra inválida. Tente novamente.';
+        mensagemResultadoElemento.style.color = 'red';
+    }
 }
 </script>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
